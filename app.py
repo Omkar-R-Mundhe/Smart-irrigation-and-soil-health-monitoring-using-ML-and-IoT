@@ -35,13 +35,14 @@ action_map = {
 }
 
 # Function to determine water requirement based on soil moisture
-def water_requirement(moisture):
-    if moisture < 30:
-        return "High water requirement: 1-2 liters per plant"
-    elif 30 <= moisture < 60:
-        return "Medium water requirement: 0.5-1 liters per plant"
+def water_requirement(soil_moisture_cb):
+    if soil_moisture_cb <= 100:
+        return "✅ Optimal: No irrigation needed. Maintain current levels."
+    elif 100 < soil_moisture_cb <= 200:
+        return "⚠️ Low Moisture: Soil is drying out. Monitor closely. Light irrigation may be needed soon."
     else:
-        return "Low water requirement: 0-0.5 liters per plant"
+        return "🚨 High Tension (Very Dry Soil): Soil is too dry! Immediate irrigation required to prevent crop stress."
+
 
 # Irrigation Prediction API
 @app.route("/predict_irrigation", methods=["POST"])
